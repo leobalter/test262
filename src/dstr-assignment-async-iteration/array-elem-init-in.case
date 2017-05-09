@@ -4,7 +4,7 @@
 /*---
 desc: >
     The Initializer in an AssignmentElement may be an `in` expression.
-template: async-function
+template: default
 ---*/
 
 //- setup
@@ -17,6 +17,6 @@ var x;
 assert.sameValue(x, false);
 
 //- teardown
-fn()
+promise
   .then(() => assert.sameValue(iterCount, 1, 'iteration occurred as expected'), $DONE)
   .then($DONE, $DONE);

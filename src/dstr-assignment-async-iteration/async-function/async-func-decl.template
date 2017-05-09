@@ -1,8 +1,8 @@
 // Copyright (C) 2017 the V8 project authors. All rights reserved.
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
-path: language/statements/for-await-of/async-gen-dstr-
-name: for-await-of statement
+path: language/statements/for-await-of/async-func-decl-dstr-
+name: for-await-of statement in an async function declaration
 esid: sec-for-in-and-for-of-statements-runtime-semantics-labelledevaluation
 features: [destructuring-binding, async-iteration]
 flags: [async]
@@ -25,10 +25,12 @@ info: |
   [...]
 ---*/
 
-var iterCount = 0;
-async function * fn() {
+let iterCount = 0;
+async function fn() {
   for await (/*{ elems }*/ of [/*{ vals }*/]) {
     /*{ body }*/
     iterCount += 1;
   }
 }
+
+let promise = fn();

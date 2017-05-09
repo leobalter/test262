@@ -18,7 +18,7 @@ info: |
     6. Let innerResult be Call(return, iterator, « »).
     [...]
 features: [Symbol.iterator]
-template: async-generator
+template: default
 esid: sec-runtime-semantics-destructuringassignmentevaluation
 ---*/
 
@@ -58,6 +58,6 @@ assert(!!args, 'arguments object provided');
 assert.sameValue(args.length, 0, 'zero arguments specified');
 
 //- teardown
-fn().next()
+promise
   .then(() => assert.sameValue(iterCount, 1, 'iteration occurred as expected'), $DONE)
   .then($DONE, $DONE);

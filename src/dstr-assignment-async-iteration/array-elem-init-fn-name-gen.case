@@ -3,7 +3,7 @@
 
 /*---
 desc: Assignment of function `name` attribute (GeneratorExpression)
-template: async-generator
+template: default
 info: >
     AssignmentElement[Yield] : DestructuringAssignmentTarget Initializeropt
 
@@ -34,6 +34,6 @@ verifyNotWritable(gen, 'name');
 verifyConfigurable(gen, 'name');
 
 //- teardown
-fn().next()
+promise
   .then(() => assert.sameValue(iterCount, 1, 'iteration occurred as expected'), $DONE)
   .then($DONE, $DONE);

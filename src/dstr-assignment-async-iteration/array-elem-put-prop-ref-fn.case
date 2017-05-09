@@ -5,7 +5,7 @@
 desc: >
     The DestructuringAssignmentTarget of an AssignmentElement may be a
     PropertyReference.
-template: async-function
+template: default
 ---*/
 
 //- setup
@@ -19,6 +19,6 @@ assert.sameValue(x.y, 4);
 
 
 //- teardown
-fn()
+promise
   .then(() => assert.sameValue(iterCount, 1, 'iteration occurred as expected'), $DONE)
   .then($DONE, $DONE);

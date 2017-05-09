@@ -22,7 +22,7 @@ assert.sameValue(x, 2);
 
 
 //- teardown
-fn()
+promise
   .then(() => assert.sameValue(iterCount, 1, 'iteration occurred as expected'), $DONE)
   .then($DONE, $DONE);
 

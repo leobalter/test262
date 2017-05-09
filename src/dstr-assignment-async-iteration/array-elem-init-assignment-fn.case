@@ -5,7 +5,7 @@
 desc: >
     If the Initializer is present and v is undefined, the Initializer should be
     evaluated and the result assigned to the target reference.
-template: async-function
+template: default
 ---*/
 
 //- setup
@@ -23,6 +23,6 @@ assert.sameValue(vOob, 14);
 
 
 //- teardown
-fn()
+promise
   .then(() => assert.sameValue(iterCount, 1, 'iteration occurred as expected'), $DONE)
   .then($DONE, $DONE);

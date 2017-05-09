@@ -4,7 +4,7 @@
 /*---
 desc: >
     Initializer values should be assigned in left-to-right order.
-template: async-function
+template: default
 ---*/
 
 //- setup
@@ -20,6 +20,6 @@ assert.sameValue(b, 2);
 assert.sameValue(x, 2);
 
 //- teardown
-fn()
+promise
   .then(() => assert.sameValue(iterCount, 1, 'iteration occurred as expected'), $DONE)
   .then($DONE, $DONE);

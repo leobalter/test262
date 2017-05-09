@@ -4,7 +4,7 @@
 /*---
 desc: >
     Assignment of function `name` attribute (CoverParenthesizedExpression)
-template: async-function
+template: default
 info: >
     AssignmentElement[Yield] : DestructuringAssignmentTarget Initializeropt
 
@@ -34,6 +34,6 @@ verifyNotWritable(cover, 'name');
 verifyConfigurable(cover, 'name');
 
 //- teardown
-fn()
+promise
   .then(() => assert.sameValue(iterCount, 1, 'iteration occurred as expected'), $DONE)
   .then($DONE, $DONE);

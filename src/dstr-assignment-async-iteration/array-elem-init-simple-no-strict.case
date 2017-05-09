@@ -6,7 +6,7 @@ desc: >
     Identifiers that appear as the DestructuringAssignmentTarget in an
     AssignmentElement should take on the iterated value corresponding to their
     position in the ArrayAssignmentPattern.
-template: async-function
+template: default
 flags: [noStrict]
 ---*/
 
@@ -21,6 +21,6 @@ assert.sameValue(arguments, 4);
 assert.sameValue(eval, 5);
 
 //- teardown
-fn()
+promise
   .then(() => assert.sameValue(iterCount, 1, 'iteration occurred as expected'), $DONE)
   .then($DONE, $DONE);

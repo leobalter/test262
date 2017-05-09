@@ -7,11 +7,10 @@ desc: >
     destructuring assignment and within a generator function body, it behaves
     as a YieldExpression.
 template: async-generator
-features: [generators]
 ---*/
 
 //- setup
-var iter, x;
+var x;
 
 
 //- elems
@@ -19,10 +18,6 @@ var iter, x;
 //- vals
 [{}]
 //- teardown
-
-
-iter = fn();
-
 iter.next().then(iterationResult => {
   assert.sameValue(iterationResult.value, undefined);
   assert.sameValue(iterationResult.done, false);
@@ -32,5 +27,5 @@ iter.next().then(iterationResult => {
     assert.sameValue(iterationResult.value, undefined);
     assert.sameValue(iterationResult.done, true);
     assert.sameValue(x, 4);
-  }).then($DONE, $DONE);
-});
+  }, $DONE).then($DONE, $DONE);
+}, $DONE).catch($DONE);

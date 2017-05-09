@@ -4,7 +4,7 @@
 /*---
 desc: >
     The Initializer should only be evaluated if v is undefined.
-template: async-function
+template: default
 ---*/
 
 //- setup
@@ -20,7 +20,7 @@ assert.sameValue(flag2, true);
 
 
 //- teardown
-fn()
+promise
   .then(() => assert.sameValue(iterCount, 1, 'iteration occurred as expected'), $DONE)
   .then($DONE, $DONE);
 

@@ -11,7 +11,7 @@ info: |
     5. If iteratorRecord.[[done]] is false, return IteratorClose(iterator, result).
     6. Return result.
 features: [Symbol.iterator]
-template: async-generator
+template: default
 esid: sec-runtime-semantics-destructuringassignmentevaluation
 ---*/
 
@@ -42,6 +42,6 @@ assert.sameValue(nextCount, 1);
 assert.sameValue(returnCount, 0);
 
 //- teardown
-fn().next()
+promise
   .then(() => assert.sameValue(iterCount, 1, 'iteration occurred as expected'), $DONE)
   .then($DONE, $DONE);

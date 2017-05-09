@@ -3,7 +3,7 @@
 
 /*---
 desc: Assignment of function `name` attribute (FunctionExpression)
-template: async-function
+template: default
 info: >
     AssignmentElement[Yield] : DestructuringAssignmentTarget Initializeropt
 
@@ -34,6 +34,6 @@ verifyNotWritable(fn, 'name');
 verifyConfigurable(fn, 'name');
 
 //- teardown
-fn()
+promise
   .then(() => assert.sameValue(iterCount, 1, 'iteration occurred as expected'), $DONE)
   .then($DONE, $DONE);

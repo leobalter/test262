@@ -6,7 +6,7 @@ desc: >
     When a `yield` token appears within the DestructuringAssignmentTarget of a
     nested destructuring assignment outside of strict mode, it behaves as an
     IdentifierReference.
-template: async-function
+template: default
 flags: [noStrict]
 ---*/
 
