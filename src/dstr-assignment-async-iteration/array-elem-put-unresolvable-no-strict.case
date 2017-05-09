@@ -16,7 +16,6 @@ flags: [noStrict]
 //- body
 assert.sameValue(unresolvable, undefined);
 
-
 //- teardown
 promise
   .then(() => assert.sameValue(iterCount, 1, 'iteration occurred as expected'), $DONE)
