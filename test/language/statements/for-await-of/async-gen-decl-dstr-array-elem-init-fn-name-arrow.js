@@ -1,11 +1,12 @@
 // This file was procedurally generated from the following sources:
-// - src/dstr-assignment-async-iteration/array-elem-init-evaluation-fn.case
+// - src/dstr-assignment-async-iteration/array-elem-init-fn-name-arrow.case
 // - src/dstr-assignment-async-iteration/default/async-gen-decl.template
 /*---
-description: The Initializer should only be evaluated if v is undefined. (for-await-of statement in an async generator declaration)
+description: Assignment of function `name` attribute (ArrowFunction) (for-await-of statement in an async generator declaration)
 esid: sec-for-in-and-for-of-statements-runtime-semantics-labelledevaluation
 features: [destructuring-binding, async-iteration]
 flags: [generated, async]
+includes: [propertyHelper.js]
 info: |
     IterationStatement :
       for await ( LeftHandSideExpression of AssignmentExpression ) Statement
@@ -23,16 +24,26 @@ info: |
        b. Let assignmentPattern be the parse of the source text corresponding to
           lhs using AssignmentPattern as the goal symbol.
     [...]
+
+    AssignmentElement[Yield] : DestructuringAssignmentTarget Initializeropt
+    [...] 7. If Initializer is present and value is undefined and
+       IsAnonymousFunctionDefinition(Initializer) and IsIdentifierRef of
+       DestructuringAssignmentTarget are both true, then
+       a. Let hasNameProperty be HasOwnProperty(v, "name").
+       b. ReturnIfAbrupt(hasNameProperty).
+       c. If hasNameProperty is false, perform SetFunctionName(v,
+          GetReferencedName(lref)).
+
 ---*/
-var flag1 = false, flag2 = false;
-var _;
+var arrow;
 
 let iterCount = 0;
 async function * fn() {
-  for await ([ _ = flag1 = true, _ = flag2 = true ] of [[14]]) {
-    assert.sameValue(flag1, false);
-    assert.sameValue(flag2, true);
-
+  for await ([ arrow = () => {} ] of [[]]) {
+    assert.sameValue(arrow.name, 'arrow');
+    verifyNotEnumerable(arrow, 'name');
+    verifyNotWritable(arrow, 'name');
+    verifyConfigurable(arrow, 'name');
 
     iterCount += 1;
   }
@@ -43,4 +54,3 @@ let promise = fn().next();
 promise
   .then(() => assert.sameValue(iterCount, 1, 'iteration occurred as expected'), $DONE)
   .then($DONE, $DONE);
-

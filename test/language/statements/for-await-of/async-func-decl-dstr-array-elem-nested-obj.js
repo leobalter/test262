@@ -1,8 +1,8 @@
 // This file was procedurally generated from the following sources:
-// - src/dstr-assignment-async-iteration/array-elem-put-prop-ref-fn.case
-// - src/dstr-assignment-async-iteration/default/async-gen-decl.template
+// - src/dstr-assignment-async-iteration/array-elem-nested-obj.case
+// - src/dstr-assignment-async-iteration/default/async-func-decl.template
 /*---
-description: The DestructuringAssignmentTarget of an AssignmentElement may be a PropertyReference. (for-await-of statement in an async generator declaration)
+description: When DestructuringAssignmentTarget is an object literal, it should be parsed as a DestructuringAssignmentPattern and evaluated as a destructuring assignment. (for-await-of statement in an async function declaration)
 esid: sec-for-in-and-for-of-statements-runtime-semantics-labelledevaluation
 features: [destructuring-binding, async-iteration]
 flags: [generated, async]
@@ -24,19 +24,20 @@ info: |
           lhs using AssignmentPattern as the goal symbol.
     [...]
 ---*/
-var x = {};
+var x;
 
 let iterCount = 0;
-async function * fn() {
-  for await ([x.y] of [[4]]) {
-    assert.sameValue(x.y, 4);
+async function fn() {
+  for await ([{ x }] of [[{ x: 2 }]]) {
+    assert.sameValue(x, 2);
+
 
 
     iterCount += 1;
   }
 }
 
-let promise = fn().next();
+let promise = fn();
 
 promise
   .then(() => assert.sameValue(iterCount, 1, 'iteration occurred as expected'), $DONE)

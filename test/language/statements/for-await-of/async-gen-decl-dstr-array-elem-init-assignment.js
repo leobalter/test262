@@ -1,5 +1,5 @@
 // This file was procedurally generated from the following sources:
-// - src/dstr-assignment-async-iteration/array-elem-init-assignment-gen.case
+// - src/dstr-assignment-async-iteration/array-elem-init-assignment.case
 // - src/dstr-assignment-async-iteration/default/async-gen-decl.template
 /*---
 description: If the Initializer is present and v is undefined, the Initializer should be evaluated and the result assigned to the target reference. (for-await-of statement in an async generator declaration)

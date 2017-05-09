@@ -1,8 +1,8 @@
 // This file was procedurally generated from the following sources:
-// - src/dstr-assignment-async-iteration/array-elem-init-fn-name-class-fn.case
-// - src/dstr-assignment-async-iteration/default/async-gen-decl.template
+// - src/dstr-assignment-async-iteration/array-elem-init-fn-name-class.case
+// - src/dstr-assignment-async-iteration/default/async-func-decl.template
 /*---
-description: Assignment of function `name` attribute (ClassExpression) (for-await-of statement in an async generator declaration)
+description: Assignment of function `name` attribute (ClassExpression) (for-await-of statement in an async function declaration)
 esid: sec-for-in-and-for-of-statements-runtime-semantics-labelledevaluation
 features: [class, destructuring-binding, async-iteration]
 flags: [generated, async]
@@ -38,7 +38,7 @@ info: |
 var xCls, cls, xCls2;
 
 let iterCount = 0;
-async function * fn() {
+async function fn() {
   for await ([ xCls = class x {}, cls = class {}, xCls2 = class { static name() {} } ] of [[]]) {
     assert(xCls.name !== 'xCls');
     assert(xCls2.name !== 'xCls2');
@@ -53,7 +53,7 @@ async function * fn() {
   }
 }
 
-let promise = fn().next();
+let promise = fn();
 
 promise
   .then(() => assert.sameValue(iterCount, 1, 'iteration occurred as expected'), $DONE)

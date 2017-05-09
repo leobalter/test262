@@ -1,8 +1,8 @@
 // This file was procedurally generated from the following sources:
-// - src/dstr-assignment-async-iteration/array-elem-nested-obj-fn.case
-// - src/dstr-assignment-async-iteration/default/async-gen-decl.template
+// - src/dstr-assignment-async-iteration/array-elem-init-evaluation.case
+// - src/dstr-assignment-async-iteration/default/async-func-decl.template
 /*---
-description: When DestructuringAssignmentTarget is an object literal, it should be parsed as a DestructuringAssignmentPattern and evaluated as a destructuring assignment. (for-await-of statement in an async generator declaration)
+description: The Initializer should only be evaluated if v is undefined. (for-await-of statement in an async function declaration)
 esid: sec-for-in-and-for-of-statements-runtime-semantics-labelledevaluation
 features: [destructuring-binding, async-iteration]
 flags: [generated, async]
@@ -24,21 +24,23 @@ info: |
           lhs using AssignmentPattern as the goal symbol.
     [...]
 ---*/
-var x;
+var flag1 = false, flag2 = false;
+var _;
 
 let iterCount = 0;
-async function * fn() {
-  for await ([{ x }] of [[{ x: 2 }]]) {
-    assert.sameValue(x, 2);
-
+async function fn() {
+  for await ([ _ = flag1 = true, _ = flag2 = true ] of [[14]]) {
+    assert.sameValue(flag1, false);
+    assert.sameValue(flag2, true);
 
 
     iterCount += 1;
   }
 }
 
-let promise = fn().next();
+let promise = fn();
 
 promise
   .then(() => assert.sameValue(iterCount, 1, 'iteration occurred as expected'), $DONE)
   .then($DONE, $DONE);
+

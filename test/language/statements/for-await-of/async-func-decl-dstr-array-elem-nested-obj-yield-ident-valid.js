@@ -1,11 +1,11 @@
 // This file was procedurally generated from the following sources:
-// - src/dstr-assignment-async-iteration/array-elem-init-evaluation-gen.case
-// - src/dstr-assignment-async-iteration/default/async-func-decl.template
+// - src/dstr-assignment-async-iteration/array-elem-nested-obj-yield-ident-valid.case
+// - src/dstr-assignment-async-iteration/async-function/async-func-decl.template
 /*---
-description: The Initializer should only be evaluated if v is undefined. (for-await-of statement in an async function declaration)
+description: When a `yield` token appears within the Initializer of a nested destructuring assignment outside of a generator function body, it behaves as an IdentifierReference. (for-await-of statement in an async function declaration)
 esid: sec-for-in-and-for-of-statements-runtime-semantics-labelledevaluation
 features: [destructuring-binding, async-iteration]
-flags: [generated, async]
+flags: [generated, noStrict, async]
 info: |
     IterationStatement :
       for await ( LeftHandSideExpression of AssignmentExpression ) Statement
@@ -24,14 +24,13 @@ info: |
           lhs using AssignmentPattern as the goal symbol.
     [...]
 ---*/
-var flag1 = false, flag2 = false;
-var _;
+var yield = 2;
+var x;
 
 let iterCount = 0;
 async function fn() {
-  for await ([ _ = flag1 = true, _ = flag2 = true ] of [[14]]) {
-    assert.sameValue(flag1, false);
-    assert.sameValue(flag2, true);
+  for await ([{ x = yield }] of [[{}]]) {
+    assert.sameValue(x, 2);
 
 
     iterCount += 1;

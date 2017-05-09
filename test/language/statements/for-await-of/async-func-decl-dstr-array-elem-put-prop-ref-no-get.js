@@ -1,11 +1,11 @@
 // This file was procedurally generated from the following sources:
-// - src/dstr-assignment-async-iteration/array-elem-put-unresolvable-no-strict-fn.case
+// - src/dstr-assignment-async-iteration/array-elem-put-prop-ref-no-get.case
 // - src/dstr-assignment-async-iteration/default/async-func-decl.template
 /*---
-description: Outside of strict mode, if the the assignment target is an unresolvable reference, a new `var` binding should be created in the environment record. (for-await-of statement in an async function declaration)
+description: If the DestructuringAssignmentTarget of an AssignmentElement is a PropertyReference, it should not be evaluated. (for-await-of statement in an async function declaration)
 esid: sec-for-in-and-for-of-statements-runtime-semantics-labelledevaluation
 features: [destructuring-binding, async-iteration]
-flags: [generated, noStrict, async]
+flags: [generated, async]
 info: |
     IterationStatement :
       for await ( LeftHandSideExpression of AssignmentExpression ) Statement
@@ -24,11 +24,22 @@ info: |
           lhs using AssignmentPattern as the goal symbol.
     [...]
 ---*/
+var x, setValue;
+x = {
+  get y() {
+    $ERROR('The property should not be accessed.');
+  },
+  set y(val) {
+    setValue = val;
+  }
+};
 
 let iterCount = 0;
 async function fn() {
-  for await ([ unresolvable ] of [[]]) {
-    
+  for await ([x.y] of [[23]]) {
+    assert.sameValue(setValue, 23);
+
+
     iterCount += 1;
   }
 }

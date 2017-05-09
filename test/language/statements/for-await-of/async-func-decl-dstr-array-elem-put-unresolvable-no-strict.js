@@ -1,12 +1,11 @@
 // This file was procedurally generated from the following sources:
-// - src/dstr-assignment-async-iteration/array-elem-init-fn-name-cover-fn.case
+// - src/dstr-assignment-async-iteration/array-elem-put-unresolvable-no-strict.case
 // - src/dstr-assignment-async-iteration/default/async-func-decl.template
 /*---
-description: Assignment of function `name` attribute (CoverParenthesizedExpression) (for-await-of statement in an async function declaration)
+description: Outside of strict mode, if the the assignment target is an unresolvable reference, a new `var` binding should be created in the environment record. (for-await-of statement in an async function declaration)
 esid: sec-for-in-and-for-of-statements-runtime-semantics-labelledevaluation
 features: [destructuring-binding, async-iteration]
-flags: [generated, async]
-includes: [propertyHelper.js]
+flags: [generated, noStrict, async]
 info: |
     IterationStatement :
       for await ( LeftHandSideExpression of AssignmentExpression ) Statement
@@ -24,28 +23,12 @@ info: |
        b. Let assignmentPattern be the parse of the source text corresponding to
           lhs using AssignmentPattern as the goal symbol.
     [...]
-
-    AssignmentElement[Yield] : DestructuringAssignmentTarget Initializeropt
-    [...] 7. If Initializer is present and value is undefined and
-       IsAnonymousFunctionDefinition(Initializer) and IsIdentifierRef of
-       DestructuringAssignmentTarget are both true, then
-       a. Let hasNameProperty be HasOwnProperty(v, "name").
-       b. ReturnIfAbrupt(hasNameProperty).
-       c. If hasNameProperty is false, perform SetFunctionName(v,
-          GetReferencedName(lref)).
-
 ---*/
-var xCover, cover;
 
 let iterCount = 0;
 async function fn() {
-  for await ([ xCover = (0, function() {}), cover = (function() {}) ] of [[]]) {
-    assert(xCover.name !== 'xCover');
-
-    assert.sameValue(cover.name, 'cover');
-    verifyNotEnumerable(cover, 'name');
-    verifyNotWritable(cover, 'name');
-    verifyConfigurable(cover, 'name');
+  for await ([ unresolvable ] of [[]]) {
+    assert.sameValue(unresolvable, undefined);
 
     iterCount += 1;
   }

@@ -1,11 +1,11 @@
 // This file was procedurally generated from the following sources:
-// - src/dstr-assignment-async-iteration/array-elem-put-unresolvable-no-strict-gen.case
+// - src/dstr-assignment-async-iteration/array-elem-init-assignment.case
 // - src/dstr-assignment-async-iteration/default/async-func-decl.template
 /*---
-description: Outside of strict mode, if the the assignment target is an unresolvable reference, a new `var` binding should be created in the environment record. (for-await-of statement in an async function declaration)
+description: If the Initializer is present and v is undefined, the Initializer should be evaluated and the result assigned to the target reference. (for-await-of statement in an async function declaration)
 esid: sec-for-in-and-for-of-statements-runtime-semantics-labelledevaluation
 features: [destructuring-binding, async-iteration]
-flags: [generated, noStrict, async]
+flags: [generated, async]
 info: |
     IterationStatement :
       for await ( LeftHandSideExpression of AssignmentExpression ) Statement
@@ -24,11 +24,16 @@ info: |
           lhs using AssignmentPattern as the goal symbol.
     [...]
 ---*/
+var v2, vNull, vHole, vUndefined, vOob;
 
 let iterCount = 0;
 async function fn() {
-  for await ([ unresolvable ] of [[]]) {
-    assert.sameValue(unresolvable, undefined);
+  for await ([v2 = 10, vNull = 11, vHole = 12, vUndefined = 13, vOob = 14] of [[2, null, , undefined]]) {
+    assert.sameValue(v2, 2);
+    assert.sameValue(vNull, null);
+    assert.sameValue(vHole, 12);
+    assert.sameValue(vUndefined, 13);
+    assert.sameValue(vOob, 14);
 
 
     iterCount += 1;

@@ -1,12 +1,11 @@
 // This file was procedurally generated from the following sources:
-// - src/dstr-assignment-async-iteration/array-elem-init-fn-name-class-gen.case
+// - src/dstr-assignment-async-iteration/array-elem-nested-obj.case
 // - src/dstr-assignment-async-iteration/default/async-gen-decl.template
 /*---
-description: Assignment of function `name` attribute (ClassExpression) (for-await-of statement in an async generator declaration)
+description: When DestructuringAssignmentTarget is an object literal, it should be parsed as a DestructuringAssignmentPattern and evaluated as a destructuring assignment. (for-await-of statement in an async generator declaration)
 esid: sec-for-in-and-for-of-statements-runtime-semantics-labelledevaluation
-features: [class, destructuring-binding, async-iteration]
+features: [destructuring-binding, async-iteration]
 flags: [generated, async]
-includes: [propertyHelper.js]
 info: |
     IterationStatement :
       for await ( LeftHandSideExpression of AssignmentExpression ) Statement
@@ -24,29 +23,14 @@ info: |
        b. Let assignmentPattern be the parse of the source text corresponding to
           lhs using AssignmentPattern as the goal symbol.
     [...]
-
-    AssignmentElement[Yield] : DestructuringAssignmentTarget Initializeropt
-    [...] 7. If Initializer is present and value is undefined and
-       IsAnonymousFunctionDefinition(Initializer) and IsIdentifierRef of
-       DestructuringAssignmentTarget are both true, then
-       a. Let hasNameProperty be HasOwnProperty(v, "name").
-       b. ReturnIfAbrupt(hasNameProperty).
-       c. If hasNameProperty is false, perform SetFunctionName(v,
-          GetReferencedName(lref)).
-
 ---*/
-var xCls, cls, xCls2;
+var x;
 
 let iterCount = 0;
 async function * fn() {
-  for await ([ xCls = class x {}, cls = class {}, xCls2 = class { static name() {} } ] of [[]]) {
-    assert(xCls.name !== 'xCls');
-    assert(xCls2.name !== 'xCls2');
+  for await ([{ x }] of [[{ x: 2 }]]) {
+    assert.sameValue(x, 2);
 
-    assert.sameValue(cls.name, 'cls');
-    verifyNotEnumerable(cls, 'name');
-    verifyNotWritable(cls, 'name');
-    verifyConfigurable(cls, 'name');
 
 
     iterCount += 1;
@@ -58,4 +42,3 @@ let promise = fn().next();
 promise
   .then(() => assert.sameValue(iterCount, 1, 'iteration occurred as expected'), $DONE)
   .then($DONE, $DONE);
-
