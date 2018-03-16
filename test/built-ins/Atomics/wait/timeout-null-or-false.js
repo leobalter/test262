@@ -4,7 +4,7 @@
 /*---
 esid: sec-atomics.wait
 description: >
-  Null or true timeout arg should result in an +0 timeout
+  Null or false timeout arg should result in an +0 timeout
 info: |
   Atomics.wait( typedArray, index, value, timeout )
 
@@ -12,7 +12,7 @@ info: |
     ...
     Null  Return +0.
     Boolean	If argument is true, return 1. If argument is false, return +0.
-features: [ Atomics ]
+features: [Atomics]
 includes: [atomicsHelper.js]
 ---*/
 

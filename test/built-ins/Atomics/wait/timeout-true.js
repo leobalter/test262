@@ -4,7 +4,7 @@
 /*---
 esid: sec-atomics.wait
 description: >
-  False timeout arg should result in a timeout value of 1
+  Timeout arg (true) is cast to 1
 info: |
   Atomics.wait( typedArray, index, value, timeout )
 
@@ -28,7 +28,7 @@ $262.agent.start(
 $262.agent.receiveBroadcast(function (sab) {
   var int32Array = new Int32Array(sab);
   var start = Date.now();
-  $262.agent.report("A " + Atomics.wait(int32Array, 0, 0, true));  // true => 1
+  $262.agent.report(Atomics.wait(int32Array, 0, 0, true));  // true => 1
   $262.agent.report(Date.now() - start);
   $262.agent.leaving();
 })
@@ -38,10 +38,8 @@ var int32Array = new Int32Array(new SharedArrayBuffer(Int32Array.BYTES_PER_ELEME
 
 $262.agent.broadcast(int32Array.buffer);
 
+$262.agent.sleep(2);
+
 var r1 = getReport();
-var r2 = getReport();
 
-assert.sameValue(r1, "A timed-out");
-assert(r2 >= 1 && r2 <= $ATOMICS_MAX_TIME_EPSILON, "timeout should be a min of 1ms and max of $ATOMICS_MAX_TIME_EPSILON");
-
-assert.sameValue(Atomics.wake(int32Array, 0), 0);
+assert.sameValue(r1, "timed-out");

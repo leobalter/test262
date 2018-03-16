@@ -4,7 +4,7 @@
 /*---
 esid: sec-atomics.wait
 description: >
-  Undefined or NaN timeout arg should result in an infinite timeout
+  Undefined timeout arg should result in an infinite timeout
 info: |
   Atomics.wait( typedArray, index, value, timeout )
 
@@ -49,8 +49,6 @@ var int32Array = new Int32Array(new SharedArrayBuffer(Int32Array.BYTES_PER_ELEME
 $262.agent.broadcast(int32Array.buffer);
 
 $262.agent.sleep(500); // Ample time
-
-assert.sameValue($262.agent.getReport(), null);
 
 assert.sameValue(Atomics.wake(int32Array, WAKEUP, WAKECOUNT), WAKECOUNT);
 
