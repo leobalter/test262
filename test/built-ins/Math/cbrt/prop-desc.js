@@ -7,6 +7,8 @@ description: Testing descriptor property of Math.cbrt
 includes: [propertyHelper.js]
 ---*/
 
-verifyNotEnumerable(Math, "cbrt");
-verifyWritable(Math, "cbrt");
-verifyConfigurable(Math, "cbrt");
+verifyProperty(Math, "cbrt", {
+    enumerable: false,
+    writable: true,
+    configurable: true,
+});
