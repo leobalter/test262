@@ -1,1 +1,2 @@
 *.js diff
+*.js text eol=lf
