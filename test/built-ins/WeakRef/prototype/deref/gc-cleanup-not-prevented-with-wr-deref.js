@@ -17,6 +17,7 @@ features: [WeakRef, host-gc-required]
 ---*/
 
 var deref = false;
+var derefAsync = false;
 
 function emptyCells() {
   var wr;
@@ -26,8 +27,13 @@ function emptyCells() {
   })();
   $262.gc();
   deref = wr.deref();
+  return Promise.resolve().then(() => {
+    derefAsync = wr.deref();
+  });
 }
 
-emptyCells();
+emptyCells().then(() => {
+  assert.sameValue(derefAsync, undefined);
+});
 
-assert.sameValue(deref, undefined);
+assert.sameValue(typeof deref, 'object', 'object is still in the agent.[[KeptAlive]] list');
