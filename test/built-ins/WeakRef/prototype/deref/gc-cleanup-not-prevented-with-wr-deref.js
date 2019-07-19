@@ -28,6 +28,7 @@ function emptyCells() {
   $262.gc();
   deref = wr.deref();
   return Promise.resolve().then(() => {
+    $262.gc();
     derefAsync = wr.deref();
   });
 }
